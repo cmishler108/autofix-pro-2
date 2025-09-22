@@ -1,0 +1,48 @@
+{
+  "name": "doneez",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@internationalized/date": "^3.5.5",
+    "@nextui-org/react": "^2.4.8",
+    "@react-aria/i18n": "^3.12.2",
+    "@react-google-maps/api": "^2.19.3",
+    "@react-three/drei": "^9.95.0",
+    "@react-three/fiber": "^8.14.0",
+    "@smastrom/react-rating": "^1.5.0",
+    "@uidotdev/usehooks": "^2.4.1",
+    "axios": "^1.7.7",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.10.5",
+    "jwt-decode": "^4.0.0",
+    "next": "^14.2.13",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.4.1",
+    "react-phone-number-input": "^3.4.8",
+    "three": "^0.152.0"
+  },
+  "devDependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@types/node": "^20.16.7",
+    "@types/react": "^18.3.9",
+    "@types/react-dom": "^18.3.0",
+    "date-fns": "^4.1.0",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.13",
+    "lucide-react": "^0.483.0",
+    "postcss": "^8.4.47",
+    "react-icons": "^5.5.0",
+    "tailwindcss": "^3.4.13",
+    "typescript": "^5.6.2"
+  }
+}
