@@ -1,53 +1,34 @@
 #!/bin/bash
 
-# AutoFix Pro Deployment Script for Digital Ocean
-# This script sets up and deploys the application on a fresh droplet
+# AutoFix Pro Docker Container Startup Script
+# This script starts all services within the Docker container
 
 set -e  # Exit on any error
 
-echo "🚀 Starting AutoFix Pro deployment..."
+echo "🚀 Starting AutoFix Pro services..."
 
-# Update system packages
-echo "📦 Updating system packages..."
-apt update && apt upgrade -y
+# Start Django backend
+echo "🐍 Starting Django backend..."
+cd /app/backend
+python3 manage.py runserver 0.0.0.0:8000 &
 
-# Install required packages
-echo "🔧 Installing required packages..."
-apt install -y curl git nginx python3 python3-pip python3-venv nodejs npm
+# Start main frontend
+echo "🎨 Starting main frontend..."
+cd /app/frontend
+npm start &
 
-# Install PM2 for process management
-echo "📋 Installing PM2..."
-npm install -g pm2
+# Start doneez frontend
+echo "🎨 Starting doneez frontend..."
+cd /app/doneez-frontend
+PORT=3001 npm start &
 
-# Create application directory
-APP_DIR="/var/www/autofix-pro"
-echo "📁 Setting up application directory: $APP_DIR"
-mkdir -p $APP_DIR
-cd $APP_DIR
+echo "✅ All services started successfully!"
+echo "📍 Main Frontend: http://localhost:3000"
+echo "📍 DoneEZ Frontend: http://localhost:3001" 
+echo "📍 Django Backend: http://localhost:8000"
 
-# Clone or update repository
-if [ -d ".git" ]; then
-    echo "🔄 Updating existing repository..."
-    git pull origin main
-else
-    echo "📥 Cloning repository..."
-    git clone https://github.com/cmishler108/autofix-pro-digital-ocean-code.git .
-fi
-
-# Setup Frontend (Next.js)
-echo "🎨 Setting up frontend..."
-cd fr
-npm ci
-npm run build
-
-# Configure PM2 for frontend
-echo "⚙️ Configuring PM2 for frontend..."
-pm2 delete autofix-pro-frontend 2>/dev/null || true
-pm2 start npm --name "autofix-pro-frontend" -- start
-pm2 save
-
-# Setup Backend (Django)
-echo "🐍 Setting up backend..."
+# Keep container running
+wait
 cd ../DoneEZ/DoneEZ
 
 if [ -f "requirements.txt" ]; then
